@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfólio Joana Tatim</title>
+  <meta name="description" content="Vídeos sensoriais para marcas, com textura e som em primeiro plano.">
+  <meta name="theme-color" content="#f2f2ef">
+  <meta property="og:title" content="Joana Tatim · vídeos sensoriais para marcas">
+  <meta property="og:description" content="Vídeos sensoriais para marcas, com textura e som em primeiro plano.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="media/posters/reel-900.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="preload" as="image" href="media/posters/reel-900.webp" fetchpriority="high">
+
+  <!-- tokens primeiro; depois base; depois um arquivo por componente -->
+  <style>/* assets/css/tokens.css */
+/* ==========================================================================
+   TOKENS · Joana Tatim
+   Ideia de layout: um ciclorama branco de estúdio. O trabalho ocupa o quadro
+   e o texto fica nas margens, como anotações de claquete.
+   Tema único por escolha (o mundo visual da Joana é o fundo claro de estúdio).
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* -- Cor ---------------------------------------------------------------- */
+  --color-paper: #f2f2ef;      /* fundo: papel de estúdio, neutro levemente frio */
+  --color-surface: #e6e6e1;    /* fundo de quadro antes do pôster carregar */
+  --color-ink: #121211;        /* texto principal */
+  --color-ink-soft: #57574f;   /* metadados (contraste 6.4:1 sobre o papel) */
+  --color-line: #cbcbc4;       /* fios e bordas */
+  --color-rec: #d22f19;        /* luz de REC: som ligado, estados ativos */
+
+  /* Marcação de placeholder (dado ainda não fornecido) */
+  --color-ph-bg: #f5e6a3;
+  --color-ph-ink: #4a3b00;
+
+  /* -- Tipografia --------------------------------------------------------- */
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Escala modular (~1.25), fluida nos degraus de display */
+  --step--1: 0.78rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: clamp(1.35rem, 1.1rem + 0.9vw, 1.8rem);
+  --step-3: clamp(1.9rem, 1.3rem + 2.2vw, 3.1rem);
+  --step-4: clamp(2.4rem, 1.5rem + 3.6vw, 4.6rem);
+  --step-5: clamp(3.2rem, 1.6rem + 6.4vw, 7.4rem);
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.55;
+  --measure: 62ch;
+
+  /* -- Espaço ------------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 40px;
+  --space-7: 64px;
+  --space-8: 112px;
+  --gutter: clamp(16px, 3.2vw, 44px);
+  --max: 1600px;
+  --header-h: 60px;
+
+  /* -- Forma e movimento -------------------------------------------------- */
+  --radius-s: 2px;
+  --radius-pill: 999px;
+  --frame-ratio: 3 / 4;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-1: 160ms;
+  --dur-2: 420ms;
+  --dur-3: 900ms;
+
+  /* -- Camadas ------------------------------------------------------------ */
+  --z-header: 20;
+  --z-draft: 30;
+}
+</style>
+  <style>/* assets/css/base.css */
+/* ==========================================================================
+   BASE · reset, tipografia, utilitários e botões
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--color-paper);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + var(--space-4));
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: 400 var(--step-0) / var(--leading-body) var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, video { display: block; max-width: 100%; }
+h1, h2, h3, h4 { margin: 0; font-weight: 400; text-wrap: balance; }
+p, figure, blockquote, dl, dd { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+button, input, select, textarea { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+/* -- Utilitários -------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.soft { color: var(--color-ink-soft); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.skip-link:focus { top: var(--space-3); }
+
+/* Placeholder de conteúdo: dado que a Joana ainda precisa fornecer */
+.ph {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  line-height: 1.4;
+  padding: 0.05em 0.4em;
+  background: var(--color-ph-bg);
+  color: var(--color-ph-ink);
+  border: 1px dashed currentColor;
+  border-radius: var(--radius-s);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+html.show-placeholders .ph { outline: 2px solid var(--color-rec); outline-offset: 2px; }
+
+/* Cabeçalho de seção: rótulo em mono + título */
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--space-4) var(--gutter);
+  align-items: baseline;
+  padding-block: var(--space-7) var(--space-6);
+}
+.section-head__label { color: var(--color-ink-soft); }
+.section-head__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+@media (max-width: 760px) {
+  .section-head { grid-template-columns: 1fr; padding-block: var(--space-6) var(--space-5); }
+}
+
+/* -- Botões ------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;
+  padding: 0.7em 1.15em;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+.btn:hover { background: transparent; color: var(--color-ink); }
+.btn--ghost { background: transparent; color: var(--color-ink); }
+.btn--ghost:hover { background: var(--color-ink); color: var(--color-paper); }
+.btn svg { width: 14px; height: 14px; flex: none; }
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}
+.link-arrow svg { width: 14px; height: 14px; transition: translate var(--dur-1) var(--ease); }
+.link-arrow:hover svg { translate: 3px 0; }
+
+/* Botão redondo sobre mídia */
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(18 18 17 / 0.55);
+  color: #fff;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background var(--dur-1) var(--ease);
+}
+.icon-btn:hover { background: rgb(18 18 17 / 0.8); }
+.icon-btn svg { width: 16px; height: 16px; }
+.icon-btn[data-role="sound"][aria-pressed="true"] { background: var(--color-rec); }
+.icon-btn:focus-visible { outline-color: #fff; box-shadow: 0 0 0 4px var(--color-ink); }
+
+/* -- Movimento reduzido ------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+  <style>/* assets/css/components/header.css */
+/* HEADER · marca, navegação e controles globais de som e movimento */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas: "brand nav tools";
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  min-height: var(--header-h);
+  padding: var(--space-2) var(--gutter);
+  background: color-mix(in srgb, var(--color-paper) 86%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+}
+
+.wordmark {
+  grid-area: brand;
+  justify-self: start;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.site-nav { grid-area: nav; }
+.site-nav ul { display: flex; gap: clamp(14px, 2.4vw, 36px); list-style: none; }
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  padding-block: var(--space-2);
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { text-decoration: underline; }
+
+.header-tools {
+  grid-area: tools;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 36px;
+  padding: 0.35em 0.75em;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.toggle:hover { border-color: var(--color-ink); }
+.toggle__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--color-ink-soft);
+  transition: background var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+}
+.toggle[aria-pressed="true"] .toggle__dot {
+  background: var(--color-rec);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-rec) 22%, transparent);
+}
+.toggle__state { color: var(--color-ink-soft); }
+
+.header-cta { min-height: 36px; padding-block: 0.4em; }
+
+@media (max-width: 900px) {
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand tools" "nav nav";
+  }
+  .header-cta { display: none; }
+}
+@media (max-width: 420px) {
+  .toggle__state { display: none; }
+  .toggle { padding-inline: 0.6em; }
+}
+</style>
+  <style>/* assets/css/components/hero.css */
+/* HERO · apresentação em uma ou duas frases + reel em quase tela cheia */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-6) var(--gutter);
+  align-items: end;
+  padding-block: var(--space-5) var(--space-7);
+}
+
+.hero__text { display: grid; gap: var(--space-5); padding-bottom: var(--space-4); }
+.hero__eyebrow { color: var(--color-ink-soft); }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.hero__lede {
+  max-width: 24ch;
+  font-size: var(--step-2);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+}
+.hero__lede em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.08em;
+}
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.hero__hint { display: flex; align-items: center; gap: 0.6em; color: var(--color-ink-soft); }
+.hero__hint svg { width: 16px; height: 16px; flex: none; }
+
+.hero__frame {
+  justify-self: end;
+  width: min(100%, calc((100svh - var(--header-h) - 132px) * 0.75));
+  min-width: min(100%, 340px);
+}
+.hero__caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-3);
+  color: var(--color-ink-soft);
+}
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-top: var(--space-6); }
+  .hero__frame { justify-self: stretch; width: 100%; min-width: 0; }
+}
+</style>
+  <style>/* assets/css/components/media-frame.css */
+/* MEDIA FRAME · quadro de vídeo com pôster, autoplay silencioso e controles */
+
+.media-frame {
+  position: relative;
+  aspect-ratio: var(--ratio, var(--frame-ratio));
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--tint, var(--color-surface));
+}
+
+.media-frame__poster,
+.media-frame__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.media-frame__poster { transition: scale var(--dur-3) var(--ease); }
+
+.media-frame__video {
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+}
+.media-frame[data-state="playing"] .media-frame__video,
+.media-frame[data-state="paused"] .media-frame__video { opacity: 1; }
+
+.media-frame__controls {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 2;
+  display: flex;
+  gap: var(--space-2);
+}
+.media-frame:not([data-has-video]) .media-frame__controls { display: none; }
+
+/* Selo "prévia": só aparece com o destaque de placeholders ligado */
+.media-frame__tag {
+  position: absolute;
+  left: var(--space-3);
+  top: var(--space-3);
+  z-index: 2;
+  display: none;
+  padding: 0.2em 0.5em;
+  background: var(--color-ph-bg);
+  color: var(--color-ph-ink);
+  border: 1px dashed currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+html.show-placeholders [data-placeholder-media] { outline: 2px dashed var(--color-rec); outline-offset: -2px; }
+html.show-placeholders [data-placeholder-media] .media-frame__tag { display: block; }
+
+.media-frame[data-state="unavailable"] .media-frame__controls { display: none; }
+</style>
+  <style>/* assets/css/components/feature.css */
+/* FEATURED · sequência de projetos em quase tela cheia, sobre a cor do próprio vídeo */
+
+.features { display: grid; }
+
+.feature {
+  --field: color-mix(in oklab, var(--tint) 40%, var(--color-paper));
+  --color-ink-soft: #34342f; /* garante contraste sobre o campo tingido */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6) var(--gutter);
+  min-height: calc(100svh - var(--header-h));
+  padding: clamp(32px, 4vw, 56px) var(--gutter);
+  background: var(--field);
+}
+
+.feature__frame {
+  justify-self: center;
+  width: min(100%, 720px, calc((100svh - var(--header-h) - 112px) * 0.75));
+}
+.feature:nth-child(even) .feature__frame { order: 2; }
+
+.feature__note {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 40ch;
+  justify-self: center;
+}
+.feature__index { display: flex; gap: var(--space-4); color: var(--color-ink-soft); }
+.feature__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+.feature__brand { font-family: var(--font-mono); font-size: var(--step--1); }
+.feature__caption { font-size: var(--step-1); line-height: var(--leading-snug); }
+.feature__caption p + p { margin-top: 0.5em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .feature__frame {
+      animation: frame-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+    @keyframes frame-settle {
+      from { scale: 0.92; }
+      to { scale: 1; }
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .feature { grid-template-columns: 1fr; min-height: 0; }
+  .feature:nth-child(even) .feature__frame { order: 0; }
+  .feature__frame { width: min(100%, calc(78svh * 0.75)); }
+  .feature__note { justify-self: start; }
+}
+</style>
+  <style>/* assets/css/components/work-index.css */
+/* WORK INDEX · filtros por categoria e formato + grade com ritmo variado */
+
+.work-index { padding-bottom: var(--space-8); }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4) var(--space-6);
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-line);
+}
+.filters fieldset { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; border: 0; }
+.filters legend {
+  float: left;
+  width: 100%;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-ink-soft);
+}
+
+.chip { position: relative; display: inline-flex; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 40px;
+  padding: 0.45em 0.95em;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease);
+}
+.chip > span:hover { border-color: var(--color-ink); }
+.chip input:checked + span { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.chip input:focus-visible + span { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+.chip input:disabled + span { opacity: 0.4; cursor: not-allowed; }
+.chip__count { font-family: var(--font-mono); font-size: 0.72rem; opacity: 0.7; }
+
+.filters__status { margin-left: auto; color: var(--color-ink-soft); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  grid-auto-flow: dense;
+  gap: clamp(28px, 3vw, 44px) clamp(10px, 1.4vw, 20px);
+  list-style: none;
+}
+.grid__item--large { grid-column: span 2; grid-row: span 2; }
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.card:hover .media-frame__poster { scale: 1.025; }
+.card:focus-visible { outline-offset: 6px; }
+
+.card__meta {
+  display: grid;
+  grid-template-columns: 2.4em minmax(0, 1fr);
+  gap: 2px var(--space-2);
+}
+.card__num { color: var(--color-ink-soft); grid-row: span 2; }
+.card__title { font-size: 0.98rem; line-height: 1.3; }
+.grid__item--large .card__title { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.15; }
+.card__brand { color: var(--color-ink-soft); overflow-wrap: anywhere; }
+
+.brands {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--space-3) var(--gutter);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line);
+}
+.brands__list { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); list-style: none; }
+.brands__list a { text-decoration: none; }
+.brands__list a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid__item--large { grid-row: span 1; }
+  .brands { grid-template-columns: 1fr; }
+  .filters__status { margin-left: 0; }
+}
+</style>
+  <style>/* assets/css/components/process.css */
+/* PROCESSO · etapas curtas, formatos entregues e bloco sobre a Joana */
+
+.process { padding-bottom: var(--space-8); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6) var(--gutter);
+  list-style: none;
+  counter-reset: step;
+}
+.step { display: grid; align-content: start; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--color-ink); }
+.step__num { color: var(--color-ink-soft); }
+.step__title { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.15; }
+.step__text { max-width: 34ch; color: var(--color-ink); }
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--space-6) var(--gutter);
+  margin-top: var(--space-8);
+}
+.about__photo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  max-width: 320px;
+  padding: var(--space-4);
+  border: 1px dashed var(--color-ink-soft);
+  background: repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--color-line) 45%, transparent) 10px 11px);
+  text-align: center;
+}
+.about__img {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  height: auto;
+  align-self: start;
+  object-fit: cover;
+  background: var(--color-surface);
+}
+.about__body { display: grid; align-content: start; gap: var(--space-5); max-width: var(--measure); }
+.about__bio { font-size: var(--step-1); line-height: var(--leading-snug); }
+.formats { display: grid; gap: var(--space-2); list-style: none; }
+.formats li { display: grid; grid-template-columns: 1.6em 1fr; }
+
+@media (max-width: 960px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; }
+  .about { grid-template-columns: 1fr; }
+  .about__photo { max-width: 220px; }
+  .about__img { max-width: 140px; }
+}
+</style>
+  <style>/* assets/css/components/cta.css */
+/* CTA · faixa de orçamento antes do rodapé */
+
+.cta {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) auto;
+  align-items: end;
+  gap: var(--space-5) var(--gutter);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-ink);
+}
+.cta__title {
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+}
+.cta__text { margin-top: var(--space-4); max-width: 46ch; color: var(--color-ink-soft); }
+
+@media (max-width: 760px) { .cta { grid-template-columns: 1fr; } }
+</style>
+  <style>/* assets/css/components/contact.css */
+/* CONTATO · caminho de orçamento para marcas */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-7) var(--gutter);
+  padding-block: var(--space-7) var(--space-8);
+}
+.contact__intro { display: grid; align-content: start; gap: var(--space-5); }
+.contact__title {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+}
+.contact__text { max-width: 40ch; font-size: var(--step-1); line-height: var(--leading-snug); }
+
+.channels { display: grid; gap: 0; list-style: none; border-top: 1px solid var(--color-line); }
+.channels li {
+  display: grid;
+  grid-template-columns: 8.5em minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+.channels a { overflow-wrap: anywhere; }
+
+.brief-list { display: grid; gap: var(--space-2); list-style: none; }
+.brief-list li::before { content: "· "; color: var(--color-ink-soft); }
+
+/* Formulário */
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5) var(--space-5); }
+.field { display: grid; gap: var(--space-2); }
+.field--full { grid-column: 1 / -1; }
+.field label, .field legend { font-family: var(--font-mono); font-size: var(--step--1); color: var(--color-ink-soft); }
+.field .req { color: var(--color-rec); }
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.65em 0.1em;
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: transparent;
+  font-size: 1.05rem;
+}
+.field textarea { min-height: 140px; resize: vertical; }
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 12px) 55%, calc(100% - 7px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; border-bottom-width: 2px; box-shadow: 0 2px 0 0 var(--color-ink); }
+.field input:user-invalid, .field textarea:user-invalid { border-bottom-color: var(--color-rec); }
+.field__error { min-height: 1.2em; color: var(--color-rec); font-family: var(--font-mono); font-size: 0.75rem; }
+
+.checks { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; border: 0; }
+.checks legend { width: 100%; margin-bottom: var(--space-2); }
+
+.form__footer { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+.form__note { color: var(--color-ink-soft); max-width: 46ch; }
+
+.result {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-ink);
+  background: color-mix(in srgb, var(--color-surface) 50%, var(--color-paper));
+}
+.result__title { font-family: var(--font-display); font-size: var(--step-2); }
+.result textarea { width: 100%; min-height: 180px; padding: var(--space-3); border: 1px solid var(--color-line); background: var(--color-paper); font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.5; }
+.result__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+@media (max-width: 860px) {
+  .contact { grid-template-columns: 1fr; }
+  .form { grid-template-columns: 1fr; }
+}
+</style>
+  <style>/* assets/css/components/viewer.css */
+/* VIEWER · projeto em tela cheia sobre a cor do vídeo, com som controlado pela pessoa */
+
+.viewer {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: var(--v-bg, var(--color-paper));
+  color: var(--v-fg, var(--color-ink));
+  --color-ink-soft: var(--v-soft, #57574f);
+}
+.viewer::backdrop { background: rgb(18 18 17 / 0.5); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .viewer[open] { animation: viewer-in var(--dur-2) var(--ease); }
+  @keyframes viewer-in { from { opacity: 0; } to { opacity: 1; } }
+}
+
+.viewer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas: "bar bar" "stage panel";
+  height: 100%;
+}
+
+.viewer__bar {
+  grid-area: bar;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--gutter);
+}
+.viewer__close { background: transparent; color: inherit; border: 1px solid currentColor; }
+.viewer__close:hover { background: var(--v-fg); color: var(--v-bg); }
+
+.viewer__stage {
+  grid-area: stage;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  padding: 0 var(--gutter) var(--space-4);
+  min-height: 0;
+}
+
+.viewer__frame {
+  position: relative;
+  justify-self: center;
+  height: 100%;
+  max-height: 100%;
+  aspect-ratio: var(--ratio, var(--frame-ratio));
+  max-width: 100%;
+  overflow: hidden;
+  background: rgb(0 0 0 / 0.08);
+}
+.viewer__poster, .viewer__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.viewer__video { opacity: 0; transition: opacity var(--dur-2) var(--ease); }
+.viewer__frame[data-state="playing"] .viewer__video,
+.viewer__frame[data-state="paused"] .viewer__video { opacity: 1; }
+.viewer__unavailable {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: var(--space-3);
+  background: var(--color-ph-bg);
+  color: var(--color-ph-ink);
+}
+
+.viewer__nav { background: transparent; color: inherit; border: 1px solid currentColor; }
+.viewer__nav:hover { background: var(--v-fg); color: var(--v-bg); }
+
+.viewer__controls {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  width: min(100%, 640px);
+  justify-self: center;
+}
+.viewer__controls[hidden] { display: none; }
+.viewer__controls .icon-btn { background: var(--v-fg); color: var(--v-bg); }
+.viewer__controls .icon-btn[data-role="sound"][aria-pressed="true"] { background: var(--color-rec); color: #fff; }
+
+.viewer__seek {
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  accent-color: var(--v-fg);
+  cursor: pointer;
+}
+.viewer__time { min-width: 11ch; text-align: right; }
+
+.viewer__panel {
+  grid-area: panel;
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+  padding: var(--space-4) var(--gutter) var(--space-6) 0;
+  overflow-y: auto;
+}
+.viewer__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+.viewer__brand { font-family: var(--font-mono); font-size: var(--step--1); }
+.viewer__caption { display: grid; gap: 0.5em; font-size: var(--step-1); line-height: var(--leading-snug); }
+.viewer__meta { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: var(--space-2) var(--space-3); border-top: 1px solid currentColor; padding-top: var(--space-4); }
+.viewer__meta dt { color: var(--color-ink-soft); }
+.viewer__meta dd { overflow-wrap: anywhere; }
+.viewer__desc { color: var(--color-ink-soft); font-size: 0.92rem; }
+.viewer__panel .btn { justify-self: start; background: var(--v-fg); color: var(--v-bg); border-color: var(--v-fg); }
+.viewer__panel .btn:hover { background: transparent; color: var(--v-fg); }
+.viewer__keys { color: var(--color-ink-soft); }
+
+@media (max-width: 900px) {
+  .viewer { overflow-y: auto; }
+  .viewer__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "bar" "stage" "panel";
+    height: auto;
+  }
+  .viewer__stage { grid-template-columns: minmax(0, 1fr); padding-inline: var(--gutter); }
+  .viewer__frame { height: auto; width: min(100%, calc(68dvh * 0.75)); }
+  .viewer__nav { display: none; }
+  .viewer__panel { padding: var(--space-4) var(--gutter) var(--space-7); overflow: visible; }
+  .viewer__keys { display: none; }
+}
+</style>
+  <style>/* assets/css/components/footer.css */
+/* FOOTER + barra de rascunho (placeholders) */
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-5) var(--gutter);
+  padding-block: var(--space-6) var(--space-7);
+  border-top: 1px solid var(--color-line);
+}
+.site-footer__brand { display: grid; gap: var(--space-2); }
+.site-footer__name { font-family: var(--font-display); font-size: var(--step-2); line-height: 1; }
+.site-footer ul { display: grid; gap: var(--space-2); list-style: none; }
+.site-footer a { overflow-wrap: anywhere; }
+
+@media (max-width: 760px) { .site-footer { grid-template-columns: 1fr; } }
+
+.draft-bar {
+  position: fixed;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: var(--z-draft);
+}
+.draft-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 36px;
+  padding: 0.4em 0.8em;
+  border: 1px dashed var(--color-ph-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-ph-bg);
+  color: var(--color-ph-ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
+}
+.draft-bar button[aria-pressed="true"] { outline: 2px solid var(--color-rec); }
+body:has(.viewer[open]) .draft-bar { display: none; }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">pular para o conteúdo</a>
+  <header class="site-header" id="site-header"></header>
+
+  <main id="conteudo" tabindex="-1">
+    <div data-view="inicio">
+      <div id="hero"></div>
+      <div id="destaques-mount"></div>
+      <div id="trabalhos-mount"></div>
+      <div id="processo-mount"></div>
+      <div id="cta-mount"></div>
+    </div>
+    <div data-view="contato" hidden>
+      <div id="contato-mount"></div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <dialog id="viewer"></dialog>
+  <div id="draft-bar"></div>
+
+  <noscript>
+    <p style="padding:24px;font-family:system-ui">Este portfólio usa JavaScript para exibir os vídeos. Contato: contatojoanatatim@gmail.com · instagram @joanatatiim</p>
+  </noscript>
+  <script>(()=>{var _={draft:!0,name:"joana tatim",eyebrow:"artista \xB7 conte\xFAdos sensoriais \xB7 sensory marketing \xB7 brazil",lede:{before:"v\xEDdeos sensoriais para marcas, com",emphasis:"textura e som",after:"em primeiro plano."},listenHint:"melhor com fones. o som come\xE7a desligado e voc\xEA liga quando quiser.",reel:{id:"reel",title:"reel",alt:"Compilado de cenas: mecha de cabelo em S, gotas de s\xE9rum azul, mel escorrendo de uma semente, leite caindo no caf\xE9, p\xF3 de chocolate, p\xE9talas molhadas, espuma de banho, creme e frasco de aloeh.",tint:"#d9d6d4",tracks:[],media:{poster:"media/posters/reel",sources:[{src:"media/video/reel-preview.webm",type:'video/webm; codecs="vp9, opus"'},{src:"media/video/reel-preview.mp4",type:"video/mp4"}],placeholder:!0}},featured:["bioativos-amazonia","k-beauty-hidrabene","cafes-do-dia","sono-quentinho"],contact:{email:"contatojoanatatim@gmail.com",instagram:{handle:"@joanatatiim",url:"https://www.instagram.com/joanatatiim/"},tiktok:{handle:"@joanatatiim",url:"https://www.tiktok.com/@joanatatiim"},whatsapp:{ph:"whatsapp comercial"},responseTime:{ph:"prazo de resposta, ex.: at\xE9 2 dias \xFAteis"},base:"brazil"},process:[{title:"briefing sensorial",text:"come\xE7a pelo produto na m\xE3o. qual textura, qual som e qual sensa\xE7\xE3o a marca quer que fique em quem assiste."},{title:"mat\xE9ria-prima",text:"pesquisa de ingredientes, objetos e superf\xEDcies. \xE0s vezes \xE9 procurar as folhas certas e a semente de cumaru mais fotog\xEAnica."},{title:"set e capta\xE7\xE3o",text:"fundo limpo, luz de est\xFAdio e c\xE2mera perto o bastante para a textura virar protagonista."},{title:"som e edi\xE7\xE3o",text:"o \xE1udio original faz parte da obra. o creme, o p\xF3, o l\xEDquido caindo. a edi\xE7\xE3o segue o tempo da textura."}],formats:["reels verticais 9:16 com \xE1udio original","carross\xE9is de bastidores da produ\xE7\xE3o","posts em collab com o perfil da marca"],about:{photo:{src:"media/about/joana",alt:"Retrato de Joana Tatim."},bio:"joana tatim \xE9 artista criadora de conte\xFAdos sensoriais para marcas de beleza, bebidas e alimentos. ela aproxima a c\xE2mera at\xE9 o produto virar mat\xE9ria: creme, p\xF3, semente, espuma, gota. cada v\xEDdeo come\xE7a pelo que se pode ouvir e quase tocar."}};var h=t=>`media/posters/${t}`,g=t=>[{src:`media/video/${t}-preview.webm`,type:'video/webm; codecs="vp9, opus"'},{src:`media/video/${t}-preview.mp4`,type:"video/mp4"}],y={ph:"descri\xE7\xE3o do som, ex.: creme sendo espatulado, estalo do p\xF3"},be=[{id:"materia-prima-liquido",title:"mat\xE9ria-prima em estado l\xEDquido",caption:[],brands:["@biancaaccessory"],category:"acessorios",format:"video",collab:!1,date:"2026-10-16",credits:[{role:"modelos e cabelos",who:"@tn.talya, @du.mrtns"},{role:"fotografia",who:"@luisadfotografia"}],alt:"Mecha de cabelo castanho escuro, brilhante, curvando-se em S sobre fundo branco.",sound:y,tint:"#cdc8cb",media:{poster:h("materia-prima-liquido"),sources:g("materia-prima-liquido"),placeholder:!0},tracks:[],size:"large"},{id:"menta-gelada",title:"a menta mais gelada",caption:["para os melhores terer\xE9s"],brands:["@somos.goat"],category:"bebidas",format:"video",collab:!1,date:"2026-10-08",credits:[],alt:"Erva-mate e folhas de menta picadas em close, com uma nuvem de p\xF3 verde subindo.",sound:y,tint:"#78764b",media:{poster:h("menta-gelada"),sources:g("menta-gelada"),placeholder:!0},tracks:[]},{id:"laboratorio-hidrabene",title:"dentro do laborat\xF3rio",caption:["por tr\xE1s das c\xE2meras de muitos experimentos e usando as vidra\xE7arias qu\xEDmicas com zero rigor cient\xEDfico!!!"],brands:["@hidrabene"],category:"beleza",format:"bastidores",collab:!1,date:"2026-10-05",credits:[],alt:"Mesa branca vista de cima com s\xE9runs Hidrabene, b\xE9queres com l\xEDquido rosa e azul, prancheta e recortes de pele.",sound:null,tint:"#a8a9b5",media:{poster:h("laboratorio-hidrabene"),sources:[],placeholder:!0,carouselNote:{ph:"demais fotos do carrossel (10 imagens)"}},tracks:[]},{id:"k-beauty-hidrabene",title:"o pr\xF3ximo cap\xEDtulo da k-beauty",caption:["os tr\xEAs k-s\xE9runs que voc\xEA j\xE1 conhece est\xE3o prestes a ganhar uma nova pot\xEAncia."],brands:["@hidrabene"],category:"beleza",format:"video",collab:!0,date:"2026-09-25",credits:[],alt:"Gotas de s\xE9rum azul descendo em c\xE2mera lenta dentro de um l\xEDquido transparente.",sound:y,tint:"#c9d7ea",media:{poster:h("k-beauty-hidrabene"),sources:g("k-beauty-hidrabene"),placeholder:!0},tracks:[]},{id:"bastidores-benvi",title:"por tr\xE1s das c\xE2meras, benvi",caption:["procurar folhas certas e escolher a semente de cumaru mais bonita e fotog\xEAnica"],brands:["@benvinatural"],category:"beleza",format:"bastidores",collab:!0,date:"2026-09-21",credits:[],alt:"Esp\xE1tula de bambu com a marca benvi gravada, mergulhada em creme claro com mel e sementes mo\xEDdas.",sound:null,tint:"#baa086",media:{poster:h("bastidores-benvi"),sources:[],placeholder:!0,carouselNote:{ph:"demais fotos do carrossel (10 imagens)"}},tracks:[]},{id:"bioativos-amazonia",title:"sensorial com bioativos da amaz\xF4nia",caption:["mousse ultra hidratante da @benvinatural","(pensamentos intrusivos: \xE9 de passar na pele, n\xE3o de comer!)"],brands:["@benvinatural"],category:"beleza",format:"video",collab:!1,date:"2026-09-20",credits:[],alt:"Semente de cumaru escura suspensa sobre fundo claro, com um fio de mel dourado escorrendo.",sound:y,tint:"#e8e3e0",media:{poster:h("bioativos-amazonia"),sources:g("bioativos-amazonia"),placeholder:!0},tracks:[]},{id:"sono-quentinho",title:"para uma noite de sono mais quentinha",caption:["contando carneirinhos de chocolate com o mais gostoso good sleep"],brands:["@suplemind"],category:"alimentos",format:"video",collab:!1,date:"2026-07-09",credits:[],alt:"P\xF3 de chocolate em close, com uma colher dosadora afundada e marcas de textura na superf\xEDcie.",sound:y,tint:"#5c4740",media:{poster:h("sono-quentinho"),sources:g("sono-quentinho"),placeholder:!0},tracks:[]},{id:"banho-jellycious",title:"para um banho mais jellycious",caption:[],brands:["@goodmood.byalva","@alvapersonalcare"],category:"beleza",format:"video",collab:!1,date:"2026-06-23",credits:[],alt:"Embalagem azul-turquesa do sabonete good mood boiando em espuma branca.",sound:y,tint:"#cccfda",media:{poster:h("banho-jellycious"),sources:g("banho-jellycious"),placeholder:!0},tracks:[]},{id:"bastidores-gioi",title:"por tr\xE1s das c\xE2meras, gi\xF3i",caption:["um sensorial de todos caf\xE9s que tomamos ao longo do dia.","quantidades exageradas de caf\xE9 foram consumidas para a produ\xE7\xE3o desse v\xEDdeo"],brands:["@gioicafe"],category:"bebidas",format:"bastidores",collab:!0,date:"2026-06-02",credits:[],alt:"Leite sendo despejado em um copo de caf\xE9 gelado, formando ondas claras entre os cubos de gelo.",sound:null,tint:"#927a70",media:{poster:h("bastidores-gioi"),sources:[],placeholder:!0,carouselNote:{ph:"demais fotos do carrossel (14 imagens)"}},tracks:[]},{id:"cafes-do-dia",title:"os caf\xE9s de cada momento do dia",caption:["no caf\xE9 da manh\xE3, se arrumando, depois do almo\xE7o, antes do trabalho, durante o trabalho, pr\xE9 treino.","todos eles com @gioicafe"],brands:["@gioicafe"],category:"bebidas",format:"video",collab:!0,date:"2026-05-26",credits:[],alt:"M\xE3os despejam leite de uma leiteira de inox numa x\xEDcara de caf\xE9, ao lado de um croissant em bandeja prateada.",sound:y,tint:"#9d8e91",media:{poster:h("cafes-do-dia"),sources:g("cafes-do-dia"),placeholder:!0},tracks:[]},{id:"vontade-de-creme",title:"sim, voc\xEA tamb\xE9m vai ter vontade de usar o creme",caption:[],brands:["@lecieza.br"],category:"beleza",format:"video",collab:!1,date:"2026-03-31",credits:[],alt:"Dedos retiram creme branco de um pote aberto do creme hidratante intenso Lecieza.",sound:y,tint:"#d1cdd3",media:{poster:h("vontade-de-creme"),sources:g("vontade-de-creme"),placeholder:!0},tracks:[]},{id:"rose-inspired",title:"ros\xE9 inspired",caption:["floral e elegante","(n\xE3o houve desperd\xEDcio de vinho nessa produ\xE7\xE3o)"],brands:[],category:"autoral",format:"video",collab:!1,date:"2026-03-05",credits:[],music:{ph:"confirmar licen\xE7a da trilha para uso fora do Instagram"},alt:"P\xE9talas cor-de-rosa em macro, cobertas de gotas de \xE1gua.",sound:y,tint:"#eda0ac",media:{poster:h("rose-inspired"),sources:g("rose-inspired"),placeholder:!0},tracks:[],size:"large"},{id:"natureza-40s",title:"registro sensorial, 40 segundos de natureza",caption:[],brands:["@aloehbeauty"],category:"beleza",format:"video",collab:!1,date:"2026-01-20",duration:"00:40",credits:[],alt:"Mulher inclina um frasco verde de aloeh sobre a palma da m\xE3o, com gotas de \xE1gua no ar.",sound:y,tint:"#b9a28e",media:{poster:h("natureza-40s"),sources:g("natureza-40s"),placeholder:!0},tracks:[]},{id:"sos-new-lips",title:"kit sos new lips",caption:["hidrata\xE7\xE3o, brilho ou cor? com o kit sos new lips da pinkperfect, voc\xEA n\xE3o precisa escolher."],brands:["@pinkperfect_oficial"],category:"beleza",format:"video",collab:!0,date:"2025-05-29",credits:[],alt:"Close de l\xE1bios com gloss, a ponta do dedo tocando o l\xE1bio inferior.",sound:y,tint:"#d0b7b4",media:{poster:h("sos-new-lips"),sources:g("sos-new-lips"),placeholder:!0},tracks:[]}],O=[...be].sort((t,e)=>e.date.localeCompare(t.date)).map((t,e)=>({...t,number:String(e+1).padStart(2,"0")})),V=t=>O.find(e=>e.id===t);var E=[{id:"beleza",label:"beleza & skincare"},{id:"bebidas",label:"bebidas & caf\xE9"},{id:"alimentos",label:"alimentos & suplementos"},{id:"acessorios",label:"moda & acess\xF3rios"},{id:"autoral",label:"autoral",filterable:!1}],T=[{id:"video",label:"v\xEDdeo sensorial"},{id:"bastidores",label:"bastidores",filterable:!1}],j=(t,e)=>t.find(a=>a.id===e)?.label??e;var P=class{constructor(e){this.value=e}toString(){return this.value}},ve={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},ge=t=>String(t).replace(/[&<>"']/g,e=>ve[e]),G=t=>t==null||t===!1?"":t instanceof P?t.value:Array.isArray(t)?t.map(G).join(""):ge(t),i=(t,...e)=>new P(t.reduce((a,s,o)=>a+s+(o<e.length?G(e[o]):""),"")),x=t=>new P(String(t)),b=(t,e)=>{let a=typeof t=="string"?document.querySelector(t):t;return a&&(a.innerHTML=String(e)),a},ye=t=>i`<span class="ph" data-placeholder>[${t}]</span>`,q=t=>t&&typeof t=="object"&&"ph"in t?ye(t.ph):t,X=t=>!!(t&&typeof t=="object"&&"ph"in t),I=(t,e=document)=>e.querySelector(t);var F=t=>{if(!Number.isFinite(t))return"00:00";let e=Math.max(0,Math.floor(t));return`${String(Math.floor(e/60)).padStart(2,"0")}:${String(e%60).padStart(2,"0")}`},D=(t,e,a)=>{let s=t.match(/\w\w/g).map(r=>parseInt(r,16)),o=e.match(/\w\w/g).map(r=>parseInt(r,16));return"#"+s.map((r,u)=>Math.round(r*a+o[u]*(1-a)).toString(16).padStart(2,"0")).join("")},K=t=>{let[e,a,s]=t.match(/\w\w/g).map(o=>{let r=parseInt(o,16)/255;return r<=.03928?r/12.92:((r+.055)/1.055)**2.4});return .2126*e+.7152*a+.0722*s},z={get(t){try{return sessionStorage.getItem(t)}catch{return null}},set(t,e){try{sessionStorage.setItem(t,e)}catch{}}};var $=t=>x(`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${t}</svg>`),d={play:$('<path d="M7 4.5v15l12.5-7.5z" fill="currentColor" stroke="none"/>'),pause:$('<rect x="6" y="4.5" width="4" height="15" fill="currentColor" stroke="none"/><rect x="14" y="4.5" width="4" height="15" fill="currentColor" stroke="none"/>'),soundOn:$('<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/>'),soundOff:$('<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>'),close:$('<path d="M6 6l12 12M18 6 6 18"/>'),prev:$('<path d="M15 5l-7 7 7 7"/>'),next:$('<path d="M9 5l7 7-7 7"/>'),arrow:$('<path d="M5 12h14M13 6l6 6-6 6"/>'),arrowDown:$('<path d="M12 5v14M6 13l6 6 6-6"/>'),headphones:$('<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4" height="6" rx="1.2"/><rect x="16.5" y="14" width="4" height="6" rx="1.2"/>')};var N=class extends EventTarget{constructor(){super(),this.frames=new Map,this.soundOn=!1,this.preferred=null,this.active=null,this.suspended=!1;let e=matchMedia("(prefers-reduced-motion: reduce)"),a=!!navigator.connection?.saveData,s=z.get("jt-motion");this.motionOn=s?s==="on":!(e.matches||a),this.canHover=matchMedia("(hover: hover) and (pointer: fine)").matches,e.addEventListener?.("change",o=>{o.matches&&this.setMotion(!1)}),this.loadObserver=new IntersectionObserver(o=>o.forEach(r=>{r.isIntersecting&&(this.load(r.target),this.loadObserver.unobserve(r.target))}),{rootMargin:"300px 0px"}),this.playObserver=new IntersectionObserver(o=>{o.forEach(r=>{let u=this.frames.get(r.target);u&&(u.ratio=r.isIntersecting?r.intersectionRatio:0)}),this.sync()},{threshold:[0,.25,.5,.75,1]}),document.addEventListener("visibilitychange",()=>this.sync())}register(e=document){e.querySelectorAll("[data-media]").forEach(a=>this.add(a))}add(e){if(this.frames.has(e))return;let a=e.querySelector("video");if(!a)return;let s={video:a,mode:e.dataset.autoplay||"visible",ratio:0,userPaused:!1,userPlay:!1,loaded:!1};this.frames.set(e,s),a.addEventListener("playing",()=>{e.dataset.state="playing",this.updateFrameUI(e)}),a.addEventListener("pause",()=>{e.dataset.state!=="unavailable"&&s.mode!=="hover"&&(e.dataset.state=s.loaded?"paused":"idle"),this.updateFrameUI(e)});let o=a.querySelectorAll("source");if(o[o.length-1]?.addEventListener("error",r=>{!s.loaded||!r.target.getAttribute("src")||(e.dataset.state="unavailable",console.warn("[media] v\xEDdeo indispon\xEDvel:",o[0]?.dataset.src))}),e.querySelector('[data-role="play"]')?.addEventListener("click",()=>this.togglePlay(e)),e.querySelector('[data-role="sound"]')?.addEventListener("click",()=>this.toggleSoundFor(e)),s.mode==="visible")this.loadObserver.observe(e),this.playObserver.observe(e);else if(s.mode==="hover"){let r=e.closest("[data-hover-root]")||e,u=()=>{!this.canHover||!this.motionOn||this.suspended||(this.load(e),a.muted=!0,this.play(a))},p=()=>{a.pause(),e.dataset.state="idle"};r.addEventListener("pointerenter",u),r.addEventListener("pointerleave",p),r.addEventListener("focusin",u),r.addEventListener("focusout",p)}this.updateFrameUI(e)}load(e){let a=this.frames.get(e);!a||a.loaded||(a.video.querySelectorAll("source[data-src]").forEach(s=>{s.src=s.dataset.src}),a.video.preload="auto",a.video.load(),a.loaded=!0)}play(e){let a=e.play();a?.catch&&a.catch(()=>{e.muted||(e.muted=!0,e.play().catch(()=>{}))})}sync(){let e=[...this.frames].filter(([,o])=>o.mode==="visible"),a=e.filter(([,o])=>o.ratio>=.5&&!o.userPaused),s=this.preferred&&this.frames.get(this.preferred);this.active=s&&s.ratio>=.25&&!s.userPaused?this.preferred:a.sort((o,r)=>r[1].ratio-o[1].ratio)[0]?.[0]??null;for(let[o,r]of e){let u=r.ratio>=.5||o===this.active&&r.ratio>0,p=!document.hidden&&!this.suspended&&u&&!r.userPaused&&(this.motionOn||r.userPlay);r.video.muted=!(this.soundOn&&o===this.active),p?(this.load(o),r.video.paused&&this.play(r.video)):r.video.paused||r.video.pause(),this.updateFrameUI(o)}if(this.suspended)for(let[,o]of this.frames)o.mode==="hover"&&!o.video.paused&&o.video.pause();this.dispatchEvent(new CustomEvent("change",{detail:{soundOn:this.soundOn,motionOn:this.motionOn}}))}updateFrameUI(e){let a=this.frames.get(e);if(!a)return;let s=e.querySelector('[data-role="play"]'),o=e.querySelector('[data-role="sound"]');if(s){let r=!a.video.paused;s.innerHTML=String(r?d.pause:d.play),s.setAttribute("aria-label",r?"pausar v\xEDdeo":"reproduzir v\xEDdeo")}if(o){let r=this.soundOn&&e===this.active;o.innerHTML=String(r?d.soundOn:d.soundOff),o.setAttribute("aria-pressed",String(r)),o.setAttribute("aria-label",r?"desligar o som":"ligar o som deste v\xEDdeo")}}togglePlay(e){let a=this.frames.get(e);a&&(a.video.paused?(a.userPaused=!1,a.userPlay=!0,this.load(e),this.play(a.video)):(a.userPaused=!0,a.userPlay=!1,a.video.pause()),this.sync())}toggleSoundFor(e){let a=this.frames.get(e);if(a){if(this.soundOn&&this.active===e){this.setSound(!1);return}this.preferred=e,a.userPaused=!1,a.userPlay=!0,this.soundOn=!0,this.sync()}}setSound(e){this.soundOn=e,this.sync()}setMotion(e){if(this.motionOn=e,z.set("jt-motion",e?"on":"off"),!e)for(let[,a]of this.frames)a.userPlay=!1;this.sync()}suspend(e){this.suspended=e,this.sync()}};function Y({site:t}){return i`<a class="wordmark" href="#inicio" aria-label="${t.name}, início">${t.name}</a>
+  <nav class="site-nav" aria-label="principal">
+    <ul>
+      <li><a href="#trabalhos" data-nav="inicio">trabalhos</a></li>
+      <li><a href="#processo" data-nav="inicio">processo</a></li>
+      <li><a href="#contato" data-nav="contato">contato</a></li>
+    </ul>
+  </nav>
+  <div class="header-tools">
+    <button class="toggle" type="button" data-toggle="sound" aria-pressed="false">
+      <span class="toggle__dot" aria-hidden="true"></span><span class="toggle__label">som</span><span class="toggle__state" aria-hidden="true">off</span>
+      <span class="visually-hidden">dos vídeos</span>
+    </button>
+    <button class="toggle" type="button" data-toggle="motion" aria-pressed="true">
+      <span class="toggle__dot" aria-hidden="true"></span><span class="toggle__label">movimento</span><span class="toggle__state" aria-hidden="true">on</span>
+      <span class="visually-hidden">reprodução automática</span>
+    </button>
+    <a class="btn header-cta" href="#contato">orçamento</a>
+  </div>`}function Z(t,e){let a=t.querySelector('[data-toggle="sound"]'),s=t.querySelector('[data-toggle="motion"]'),o=()=>{a.setAttribute("aria-pressed",String(e.soundOn)),a.querySelector(".toggle__state").textContent=e.soundOn?"on":"off",s.setAttribute("aria-pressed",String(e.motionOn)),s.querySelector(".toggle__state").textContent=e.motionOn?"on":"off"};a.addEventListener("click",()=>e.setSound(!e.soundOn)),s.addEventListener("click",()=>e.setMotion(!e.motionOn)),e.addEventListener("change",o),o()}function ee(t,e){t.querySelectorAll("[data-nav]").forEach(a=>{e==="contato"&&a.dataset.nav==="contato"?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")})}function M(t,{as:e="div",autoplay:a="visible",controls:s=!0,eager:o=!1,alt:r=t.alt,sizes:u="(max-width: 860px) 100vw, 50vw"}={}){let p=t.media.sources.length>0,w=e==="span"?"span":"div",l=t.media.poster,n=(t.tracks||[]).map((m,L)=>i`<track kind="${m.kind||"captions"}" src="${m.src}" srclang="${m.srclang||"pt-BR"}" label="${m.label||"portugu\xEAs"}"${L===0?x(" default"):""}>`),f=p?i`<video class="media-frame__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" width="720" height="960">${t.media.sources.map(m=>i`<source data-src="${m.src}" type="${m.type}">`)}${n}</video>`:"",v=t.media.placeholder?i`<span class="media-frame__tag">${p?"pr\xE9via gerada do print":"foto do print"}</span>`:"",c=p&&s?i`<span class="media-frame__controls">
+        <button class="icon-btn" type="button" data-role="play" aria-label="reproduzir vídeo">${d.play}</button>
+        <button class="icon-btn" type="button" data-role="sound" aria-pressed="false" aria-label="ligar o som deste vídeo">${d.soundOff}</button>
+      </span>`:"";return i`<${x(w)} class="media-frame" data-media data-autoplay="${a}" data-state="idle" style="--tint: ${t.tint}"${p?x(" data-has-video"):""}${t.media.placeholder?x(" data-placeholder-media"):""}>
+    <img class="media-frame__poster" src="${l}-900.webp" srcset="${l}-450.webp 450w, ${l}-900.webp 900w" sizes="${u}" width="900" height="1200" alt="${r}" loading="${o?"eager":"lazy"}" decoding="async"${o?x(' fetchpriority="high"'):""}>
+    ${f}${v}${c}
+  </${x(w)}>`}function te({site:t}){let{lede:e,reel:a}=t;return i`<section class="hero wrap" id="inicio" aria-labelledby="hero-title">
+    <div class="hero__text">
+      <p class="mono hero__eyebrow">${t.eyebrow}</p>
+      <h1 class="hero__title" id="hero-title" tabindex="-1">${t.name}</h1>
+      <p class="hero__lede">${e.before} <em>${e.emphasis}</em> ${e.after}</p>
+      <div class="hero__actions">
+        <a class="btn" href="#contato">orçamento ${d.arrow}</a>
+        <a class="btn btn--ghost" href="#trabalhos">ver trabalhos ${d.arrowDown}</a>
+      </div>
+      <p class="mono hero__hint">${d.headphones}<span>${t.listenHint}</span></p>
+    </div>
+    <figure class="hero__frame">
+      ${M(a,{eager:!0,sizes:"(max-width: 860px) 100vw, 45vw"})}
+    </figure>
+  </section>`}function ae({projects:t}){let e=String(t.length).padStart(2,"0");return i`<section class="features" id="destaques" aria-labelledby="destaques-title">
+    <h2 class="visually-hidden" id="destaques-title">trabalhos em destaque</h2>
+    ${t.map((a,s)=>i`<article class="feature" style="--tint: ${a.tint}" aria-labelledby="f-${a.id}">
+      <div class="feature__frame">${M(a,{sizes:"(max-width: 820px) 100vw, 50vw"})}</div>
+      <div class="feature__note">
+        <p class="mono feature__index"><span>${String(s+1).padStart(2,"0")} / ${e}</span><span>${j(E,a.category)}</span><span>${a.date.slice(0,4)}</span></p>
+        <h3 class="feature__title" id="f-${a.id}">${a.title}</h3>
+        ${a.brands.length?i`<p class="feature__brand">${a.brands.join("  ")}${a.collab?" \xB7 collab":""}</p>`:""}
+        ${a.caption.length?i`<div class="feature__caption">${a.caption.map(o=>i`<p>${o}</p>`)}</div>`:""}
+      </div>
+    </article>`)}
+  </section>`}var k="todos",B=(t,e,a,s)=>i`<label class="chip">
+  <input type="radio" name="${t}" value="${e}"${s?i` checked`:""}>
+  <span>${a} <span class="chip__count" data-count="${e}"></span></span>
+</label>`;function $e(t,e){return i`<li class="grid__item${t.size==="large"?" grid__item--large":""}" data-category="${t.category}" data-format="${t.format}" style="view-transition-name: card-${t.id}">
+    <button class="card" type="button" data-open="${t.id}" data-hover-root>
+      ${M(t,{as:"span",autoplay:"hover",controls:!1,alt:"",sizes:t.size==="large"?"(max-width: 560px) 100vw, 40vw":"(max-width: 560px) 50vw, 22vw"})}
+      <span class="card__meta">
+        <span class="mono card__num">${t.number}</span>
+        <span class="card__title">${t.title}</span>
+        <span class="mono card__brand">${t.brands.length?t.brands.join(" "):"projeto autoral"} · ${t.format==="bastidores"?"bastidores":j(e,t.category)}</span>
+      </span>
+    </button>
+  </li>`}function oe({projects:t,categories:e,formats:a}){let s=[...new Set(t.flatMap(o=>o.brands))];return i`<section class="work-index wrap" id="trabalhos" aria-labelledby="trabalhos-title">
+    <header class="section-head">
+      <p class="mono section-head__label">índice · ${t.length} projetos</p>
+      <h2 class="section-head__title" id="trabalhos-title">trabalhos por tipo de marca e formato</h2>
+    </header>
+
+    <form class="filters" aria-label="filtrar trabalhos" data-filters>
+      <fieldset>
+        <legend>categoria de marca</legend>
+        ${B("categoria",k,"todas",!0)}
+        ${e.filter(o=>o.filterable!==!1).map(o=>B("categoria",o.id,o.label,!1))}
+      </fieldset>
+      <fieldset>
+        <legend>formato</legend>
+        ${B("formato",k,"todos",!0)}
+        ${a.filter(o=>o.filterable!==!1).map(o=>B("formato",o.id,o.label,!1))}
+      </fieldset>
+      <p class="mono filters__status" role="status" aria-live="polite" data-status></p>
+    </form>
+
+    <ul class="grid" data-grid>${t.map(o=>$e(o,e))}</ul>
+
+    <div class="brands">
+      <p class="mono soft">marcas nos trabalhos</p>
+      <ul class="brands__list">${s.map(o=>i`<li><a class="mono" href="https://www.instagram.com/${o.slice(1)}/" rel="noopener">${o}</a></li>`)}</ul>
+    </div>
+  </section>`}function se(t,{projects:e,media:a}){let s=t.querySelector("[data-filters]"),o=[...t.querySelectorAll(".grid__item")],r=t.querySelector("[data-status]"),u=(()=>{try{return JSON.parse(z.get("jt-filters")||"null")}catch{return null}})();u&&(s.querySelector(`input[name="categoria"][value="${u.cat}"]`)?.click(),s.querySelector(`input[name="formato"][value="${u.fmt}"]`)?.click());let p=w=>{let l=s.categoria.value,n=s.formato.value;z.set("jt-filters",JSON.stringify({cat:l,fmt:n}));let f=()=>{let v=0;o.forEach(c=>{let m=(l===k||c.dataset.category===l)&&(n===k||c.dataset.format===n);c.hidden=!m,m&&(v+=1)}),s.querySelectorAll("[data-count]").forEach(c=>{let m=c.dataset.count,L=c.closest("label").querySelector("input"),A=L.name==="categoria"?e.filter(S=>(m===k||S.category===m)&&(n===k||S.format===n)).length:e.filter(S=>(m===k||S.format===m)&&(l===k||S.category===l)).length;c.textContent=A,L.disabled=A===0&&!L.checked}),r.textContent=`${v} de ${e.length} projetos`};w&&document.startViewTransition&&a.motionOn?document.startViewTransition(f):f()};s.addEventListener("change",()=>p(!0)),s.addEventListener("submit",w=>w.preventDefault()),p(!1)}function re({site:t}){return i`<section class="process wrap" id="processo" aria-labelledby="processo-title">
+    <header class="section-head">
+      <p class="mono section-head__label">processo</p>
+      <h2 class="section-head__title" id="processo-title">do produto na mão ao som do vídeo</h2>
+    </header>
+
+    <ol class="steps">
+      ${t.process.map((e,a)=>i`<li class="step">
+        <span class="mono step__num">${String(a+1).padStart(2,"0")}</span>
+        <h3 class="step__title">${e.title}</h3>
+        <p class="step__text">${e.text}</p>
+      </li>`)}
+    </ol>
+
+    <div class="about">
+      ${t.about.photo.src?i`<img class="about__img" src="${t.about.photo.src}-400.webp" srcset="${t.about.photo.src}-240.webp 240w, ${t.about.photo.src}-400.webp 400w" sizes="(max-width: 560px) 140px, 200px" width="400" height="400" alt="${t.about.photo.alt}" loading="lazy" decoding="async">`:i`<div class="about__photo mono">${q(t.about.photo)}</div>`}
+      <div class="about__body">
+        <p class="mono soft">sobre</p>
+        <p class="about__bio">${q(t.about.bio)}</p>
+        <div>
+          <p class="mono soft" style="margin-bottom: var(--space-3)">formatos entregues</p>
+          <ul class="formats">${t.formats.map((e,a)=>i`<li><span class="mono soft">${String(a+1).padStart(2,"0")}</span><span>${e}</span></li>`)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>`}function ie(){return i`<section class="wrap" aria-labelledby="cta-title">
+    <div class="cta">
+      <div>
+        <h2 class="cta__title" id="cta-title">seu produto tem uma textura que a foto não mostra?</h2>
+        <p class="cta__text">conte sobre o produto e o que a marca quer que as pessoas sintam ao assistir.</p>
+      </div>
+      <a class="btn" href="#contato">conversar ${d.arrow}</a>
+    </div>
+  </section>`}function le({site:t,categories:e,projects:a}){let s=t.contact;return i`<section class="contact wrap" aria-labelledby="contato-title">
+    <div class="contact__intro">
+      <p class="mono soft">contato · orçamentos</p>
+      <h1 class="contact__title" id="contato-title" tabindex="-1">orçamentos para marcas</h1>
+      <p class="contact__text">conte sobre o produto e o que você quer que as pessoas sintam ao assistir. quanto mais concreto o briefing, mais precisa a proposta.</p>
+
+      <div>
+        <p class="mono soft" style="margin-bottom: var(--space-3)">ajuda incluir</p>
+        <ul class="brief-list">
+          <li>o produto e a textura, o som ou o gesto que ele tem de único</li>
+          <li>onde o vídeo vai rodar: reels, anúncio, site ou ponto de venda</li>
+          <li>quantos vídeos e em quais formatos</li>
+          <li>prazo de entrega e data de lançamento</li>
+          <li>referências de que a marca gosta</li>
+        </ul>
+      </div>
+
+      <ul class="channels">
+        <li><span class="mono soft">e-mail</span><a href="mailto:${s.email}">${s.email}</a></li>
+        <li><span class="mono soft">instagram</span><a href="${s.instagram.url}" rel="noopener">${s.instagram.handle}</a></li>
+        <li><span class="mono soft">tiktok</span><a href="${s.tiktok.url}" rel="noopener">${s.tiktok.handle}</a></li>
+        <li><span class="mono soft">whatsapp</span><span>${q(s.whatsapp)}</span></li>
+        <li><span class="mono soft">resposta</span><span>${q(s.responseTime)}</span></li>
+        <li><span class="mono soft">base</span><span>${s.base}</span></li>
+      </ul>
+    </div>
+
+    <form class="form" id="quote-form" novalidate aria-describedby="form-note">
+      <div class="field">
+        <label for="f-name">nome <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-name" name="nome" type="text" autocomplete="name" required aria-describedby="e-name">
+        <p class="field__error" id="e-name" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="f-email">e-mail <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
+        <p class="field__error" id="e-email" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="f-brand">marca ou empresa <span class="req" aria-hidden="true">*</span></label>
+        <input id="f-brand" name="marca" type="text" autocomplete="organization" required aria-describedby="e-brand">
+        <p class="field__error" id="e-brand" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="f-link">site ou instagram da marca</label>
+        <input id="f-link" name="link" type="text" inputmode="url" placeholder="@marca ou site">
+      </div>
+      <div class="field">
+        <label for="f-category">categoria do produto</label>
+        <select id="f-category" name="categoria">
+          <option value="">selecione</option>
+          ${e.filter(o=>o.id!=="autoral").map(o=>i`<option value="${o.label}">${o.label}</option>`)}
+          <option value="outra">outra</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-date">data desejada de entrega</label>
+        <input id="f-date" name="prazo" type="date">
+      </div>
+      <fieldset class="field field--full checks">
+        <legend>formatos de interesse</legend>
+        ${["v\xEDdeo sensorial (reels 9:16)","carrossel de bastidores","stills / fotos","outro"].map((o,r)=>i`<label class="chip"><input type="checkbox" name="formatos" value="${o}" id="f-fmt-${r}"><span>${o}</span></label>`)}
+      </fieldset>
+      <div class="field">
+        <label for="f-qty">quantidade de vídeos</label>
+        <input id="f-qty" name="quantidade" type="number" min="1" step="1" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="f-budget">verba estimada (opcional)</label>
+        <input id="f-budget" name="verba" type="text" placeholder="faixa aproximada">
+      </div>
+      <div class="field field--full">
+        <label for="f-ref">referência no portfólio</label>
+        <select id="f-ref" name="referencia">
+          <option value="">nenhuma em especial</option>
+          ${a.map(o=>i`<option value="${o.id}">${o.number} · ${o.title}</option>`)}
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="f-msg">sobre o projeto <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="f-msg" name="mensagem" required aria-describedby="e-msg"></textarea>
+        <p class="field__error" id="e-msg" aria-live="polite"></p>
+      </div>
+      <div class="form__footer">
+        <button class="btn" type="submit">preparar mensagem ${d.arrow}</button>
+        <p class="mono form__note" id="form-note">* obrigatório. o site monta a mensagem e você envia pelo seu e-mail ou copia.</p>
+      </div>
+      <div class="result" data-result hidden tabindex="-1" aria-labelledby="result-title">
+        <p class="result__title" id="result-title">sua mensagem está pronta para envio</p>
+        <p>envie para <strong>${s.email}</strong>. o botão abre seu app de e-mail com tudo preenchido. se ele não abrir, copie o texto abaixo.</p>
+        <label class="visually-hidden" for="f-output">mensagem pronta</label>
+        <textarea id="f-output" readonly data-output></textarea>
+        <div class="result__actions">
+          <a class="btn" data-mailto href="mailto:${s.email}">abrir no e-mail ${d.arrow}</a>
+          <button class="btn btn--ghost" type="button" data-copy>copiar mensagem</button>
+          <span class="mono soft" role="status" data-copy-status></span>
+        </div>
+      </div>
+    </form>
+  </section>`}var ne={valueMissing:"preencha este campo.",typeMismatch:"confira o formato do e-mail."};function de(t,{site:e,byId:a}){let s=t.querySelector("#quote-form"),o=s.querySelector("[data-result]"),r=s.querySelector("[data-output]"),u=s.querySelector("[data-mailto]"),p=s.querySelector("[data-copy-status]"),w=()=>{let l=null;return s.querySelectorAll("[required]").forEach(n=>{let f=s.querySelector(`#${n.getAttribute("aria-describedby")}`),v=n.validity,c=v.valueMissing?ne.valueMissing:v.typeMismatch?ne.typeMismatch:"";f.textContent=c,n.setAttribute("aria-invalid",String(!!c)),c&&!l&&(l=n)}),l?.focus(),!l};return s.addEventListener("submit",l=>{if(l.preventDefault(),!w())return;let n=new FormData(s),f=n.getAll("formatos"),v=a(n.get("referencia")),c=(U,Q)=>Q?`${U}: ${Q}`:null,m=n.get("prazo")?n.get("prazo").split("-").reverse().join("/"):"",A=["ol\xE1, joana!","",`nome: ${n.get("nome")}`,`marca: ${n.get("marca")}`,`e-mail: ${n.get("email")}`,c("site/instagram",n.get("link")),c("categoria",n.get("categoria")),c("formatos",f.join(", ")),c("quantidade de v\xEDdeos",n.get("quantidade")),c("entrega desejada",m),c("verba estimada",n.get("verba")),c("refer\xEAncia no portf\xF3lio",v?`${v.number} \xB7 ${v.title}`:""),"",n.get("mensagem")].filter(U=>U!==null).join(`
+`),S=`or\xE7amento \xB7 ${n.get("marca")}${f.length?` \xB7 ${f[0]}`:""}`;r.value=A,u.href=`mailto:${e.contact.email}?subject=${encodeURIComponent(S)}&body=${encodeURIComponent(A)}`,p.textContent="",o.hidden=!1,o.focus()}),s.querySelector("[data-copy]").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(r.value),p.textContent="copiado."}catch{r.select(),p.textContent="selecionei o texto. use ctrl/cmd + c para copiar."}}),s.querySelectorAll("[required]").forEach(l=>l.addEventListener("input",()=>{l.getAttribute("aria-invalid")==="true"&&l.validity.valid&&(l.setAttribute("aria-invalid","false"),s.querySelector(`#${l.getAttribute("aria-describedby")}`).textContent="")})),{prefill(l){let n=s.querySelector("#f-ref");a(l)&&(n.value=l)}}}function ce({site:t}){let e=t.contact;return i`<div class="site-footer wrap">
+    <div class="site-footer__brand">
+      <p class="site-footer__name">${t.name}</p>
+      <p class="mono soft">${t.eyebrow}</p>
+    </div>
+    <ul class="mono">
+      <li><a href="mailto:${e.email}">${e.email}</a></li>
+      <li><a href="${e.instagram.url}" rel="noopener">instagram ${e.instagram.handle}</a></li>
+      <li><a href="${e.tiktok.url}" rel="noopener">tiktok ${e.tiktok.handle}</a></li>
+    </ul>
+    <ul class="mono soft">
+      <li><a href="#contato">pedir orçamento</a></li>
+      <li>© ${new Date().getFullYear()} ${t.name}</li>
+      <li>${e.base}</li>
+    </ul>
+  </div>`}var W="#f2f2ef",ue="#121211";function we(t){let e=D(t,W,.62),a=K(e)<.22;return{bg:e,fg:a?W:ue,soft:a?D(W,e,.78):D(ue,e,.78)}}var R=class{constructor(e,{projects:a,media:s,onQuote:o}){this.dialog=e,this.projects=a,this.media=s,this.onQuote=o,this.index=-1,this.trigger=null,this.prevHash="",e.className="viewer",e.setAttribute("aria-labelledby","viewer-title"),b(e,i`<div class="viewer__inner">
+      <div class="viewer__bar">
+        <p class="mono viewer__count" data-counter></p>
+        <button class="icon-btn viewer__close" type="button" data-close aria-label="fechar projeto">${d.close}</button>
+      </div>
+      <div class="viewer__stage">
+        <button class="icon-btn viewer__nav" type="button" data-step="-1" aria-label="projeto anterior">${d.prev}</button>
+        <div class="viewer__frame" data-frame data-state="idle">
+          <img class="viewer__poster" data-poster alt="">
+          <video class="viewer__video" data-video playsinline loop preload="metadata" aria-hidden="true" tabindex="-1"></video>
+          <p class="mono viewer__unavailable" data-unavailable hidden>vídeo indisponível. confira o arquivo em media/video.</p>
+        </div>
+        <button class="icon-btn viewer__nav" type="button" data-step="1" aria-label="próximo projeto">${d.next}</button>
+        <div class="viewer__controls" data-controls>
+          <button class="icon-btn" type="button" data-role="play" aria-label="pausar vídeo">${d.pause}</button>
+          <input class="viewer__seek" type="range" min="0" max="1000" step="1" value="0" data-seek aria-label="posição do vídeo" aria-valuetext="00:00">
+          <span class="mono viewer__time" data-time>00:00 / 00:00</span>
+          <button class="icon-btn" type="button" data-role="sound" aria-pressed="false" aria-label="ligar o som">${d.soundOff}</button>
+        </div>
+      </div>
+      <aside class="viewer__panel" data-panel></aside>
+    </div>`),this.$=r=>e.querySelector(r),this.video=this.$("[data-video]"),this.frame=this.$("[data-frame]"),this.seek=this.$("[data-seek]"),this.bindEvents()}bindEvents(){let{dialog:e,video:a}=this;this.$("[data-close]").addEventListener("click",()=>this.close()),e.querySelectorAll("[data-step]").forEach(o=>o.addEventListener("click",()=>this.step(+o.dataset.step))),this.$('[data-role="play"]').addEventListener("click",()=>this.togglePlay()),this.$('[data-role="sound"]').addEventListener("click",()=>this.media.setSound(!this.media.soundOn)),e.addEventListener("click",o=>{o.target===e&&this.close()}),e.addEventListener("close",()=>this.afterClose()),e.addEventListener("cancel",o=>{o.preventDefault(),this.close()}),e.addEventListener("keydown",o=>{let r=o.target.matches("input, select, textarea")||o.target.matches("button, a")&&(o.key===" "||o.key==="Enter");o.key==="ArrowRight"&&!o.target.matches("input")?(o.preventDefault(),this.step(1)):o.key==="ArrowLeft"&&!o.target.matches("input")?(o.preventDefault(),this.step(-1)):(o.key===" "||o.key.toLowerCase()==="k")&&!r?(o.preventDefault(),this.togglePlay()):o.key.toLowerCase()==="m"&&!o.target.matches("input, textarea")&&this.media.setSound(!this.media.soundOn)}),a.addEventListener("playing",()=>{this.frame.dataset.state="playing",this.renderControls()}),a.addEventListener("pause",()=>{this.frame.dataset.state="paused",this.renderControls()}),a.addEventListener("timeupdate",()=>this.renderTime()),a.addEventListener("loadedmetadata",()=>this.renderTime()),a.addEventListener("error",()=>{this.$("[data-unavailable]").hidden=!1}),this.seek.addEventListener("input",()=>{Number.isFinite(a.duration)&&(a.currentTime=this.seek.value/1e3*a.duration)});let s=null;this.frame.addEventListener("touchstart",o=>{s=o.touches[0].clientX},{passive:!0}),this.frame.addEventListener("touchend",o=>{if(s==null)return;let r=o.changedTouches[0].clientX-s;Math.abs(r)>50&&this.step(r<0?1:-1),s=null}),this.media.addEventListener("change",()=>{this.dialog.open&&(this.video.muted=!this.media.soundOn,this.renderControls())}),this.dialog.addEventListener("click",o=>{let r=o.target.closest("[data-quote]");r&&(this.close({toHash:"contato"}),this.onQuote?.(r.dataset.quote))})}get current(){return this.projects[this.index]}get isOpen(){return this.dialog.open}open(e,a=null){let s=this.projects.findIndex(o=>o.id===e);s<0||(this.dialog.open||(this.trigger=a||document.activeElement,this.prevHash=location.hash.startsWith("#projeto-")?"":location.hash,this.media.suspend(!0),this.dialog.showModal()),this.show(s),this.$("[data-close]").focus())}step(e){this.dialog.open&&this.show((this.index+e+this.projects.length)%this.projects.length)}show(e){this.index=e;let a=this.current,s=we(a.tint);this.dialog.style.setProperty("--v-bg",s.bg),this.dialog.style.setProperty("--v-fg",s.fg),this.dialog.style.setProperty("--v-soft",s.soft),this.frame.style.setProperty("--ratio",a.media.ratio||"var(--frame-ratio)"),history.replaceState(null,"",`#projeto-${a.id}`),this.$("[data-counter]").textContent=`${a.number} / ${String(this.projects.length).padStart(2,"0")} \xB7 ${a.title}`;let o=this.$("[data-poster]");o.src=`${a.media.poster}-900.webp`,o.alt=a.alt;let r=this.video;r.pause(),r.removeAttribute("src"),r.replaceChildren(),this.$("[data-unavailable]").hidden=!0,this.frame.dataset.state="idle";let u=a.media.sources.length>0;this.$("[data-controls]").hidden=!u,u&&(a.media.sources.forEach(l=>{let n=document.createElement("source");n.src=l.src,n.type=l.type,n.addEventListener("error",()=>{this.$("[data-unavailable]").hidden=!1}),r.append(n)}),(a.tracks||[]).forEach((l,n)=>{let f=Object.assign(document.createElement("track"),{kind:l.kind||"captions",src:l.src,srclang:l.srclang||"pt-BR",label:l.label||"portugu\xEAs",default:n===0});r.append(f)}),r.muted=!this.media.soundOn,r.load(),r.play()?.catch?.(()=>{r.muted||(r.muted=!0,r.play().catch(()=>{}))})),this.renderPanel(a),this.renderControls(),this.renderTime();let p=this.projects[(e+1)%this.projects.length];new Image().src=`${p.media.poster}-900.webp`}renderPanel(e){let a=[["marca",e.brands.length?e.brands.join(", "):"projeto autoral"],["categoria",j(E,e.category)],["formato",`${j(T,e.format)}${e.collab?" \xB7 collab":""}`],["ano",e.date.slice(0,4)],e.duration&&["dura\xE7\xE3o",e.duration],...e.credits.map(s=>[s.role,s.who]),e.music&&["trilha",e.music],e.media.carouselNote&&["carrossel",e.media.carouselNote],e.sound&&["som",e.sound]].filter(Boolean);b(this.$("[data-panel]"),i`
+      <h2 class="viewer__title" id="viewer-title">${e.title}</h2>
+      ${e.caption.length?i`<div class="viewer__caption">${e.caption.map(s=>i`<p>${s}</p>`)}</div>`:""}
+      <dl class="viewer__meta mono">
+        ${a.map(([s,o])=>i`<dt>${s}</dt><dd>${X(o)?q(o):o}</dd>`)}
+      </dl>
+      <p class="viewer__desc"><span class="mono">o que se vê · </span>${e.alt}</p>
+      <button class="btn" type="button" data-quote="${e.id}">quero algo nessa linha ${d.arrow}</button>
+      <p class="mono viewer__keys">← → navegar · espaço pausar · m som · esc fechar</p>
+    `)}renderControls(){let e=!this.video.paused,a=this.$('[data-role="play"]');a.innerHTML=String(e?d.pause:d.play),a.setAttribute("aria-label",e?"pausar v\xEDdeo":"reproduzir v\xEDdeo");let s=this.$('[data-role="sound"]');s.innerHTML=String(this.media.soundOn?d.soundOn:d.soundOff),s.setAttribute("aria-pressed",String(this.media.soundOn)),s.setAttribute("aria-label",this.media.soundOn?"desligar o som":"ligar o som")}renderTime(){let{currentTime:e,duration:a}=this.video,s=Number.isFinite(a)&&a>0?e/a*1e3:0;this.seek.value=String(Math.round(s)),this.seek.setAttribute("aria-valuetext",F(e)),this.$("[data-time]").textContent=`${F(e)} / ${F(a)}`}togglePlay(){this.current?.media.sources.length&&(this.video.paused?this.video.play().catch(()=>{}):this.video.pause())}close({toHash:e}={}){this.dialog.open&&(this.closeHash=e,this.dialog.close())}afterClose(){this.video.pause(),this.video.removeAttribute("src"),this.video.replaceChildren(),this.video.load(),this.media.suspend(!1),this.closeHash?location.hash=this.closeHash:(history.replaceState(null,"",this.prevHash||location.pathname+location.search),this.trigger?.isConnected&&this.trigger.focus({preventScroll:!0})),this.closeHash=void 0}};function pe(t){let e=()=>document.querySelectorAll("[data-placeholder], [data-placeholder-media]").length;t.className="draft-bar",t.innerHTML=String(i`<button type="button" aria-pressed="false">rascunho · <span data-n></span> placeholders · destacar</button>`);let a=t.querySelector("button"),s=()=>{t.querySelector("[data-n]").textContent=e()};return a.addEventListener("click",()=>{let o=document.documentElement.classList.toggle("show-placeholders");a.setAttribute("aria-pressed",String(o))}),s(),{refresh:s}}var H=new N,he=b("#site-header",Y({site:_}));b("#hero",te({site:_}));b("#destaques-mount",ae({projects:_.featured.map(V).filter(Boolean)}));var _e=b("#trabalhos-mount",oe({projects:O,categories:E,formats:T}));b("#processo-mount",re({site:_}));b("#cta-mount",ie());var xe=b("#contato-mount",le({site:_,categories:E,projects:O}));b("#site-footer",ce({site:_}));Z(he,H);se(_e,{projects:O,media:H});var qe=de(xe,{site:_,byId:V});H.register(document);var C=new R(I("#viewer"),{projects:O,media:H,onQuote:t=>qe.prefill(t)});document.addEventListener("click",t=>{let e=t.target.closest("[data-open]");e&&(t.preventDefault(),C.open(e.dataset.open,e))});_.draft&&pe(I("#draft-bar"));var ke={inicio:"Portf\xF3lio Joana Tatim",contato:"Or\xE7amentos \xB7 Joana Tatim"},J=null;function me(t){if(t===J)return!1;document.querySelectorAll("[data-view]").forEach(a=>{a.hidden=a.dataset.view!==t}),ee(he,t),document.title=ke[t];let e=J!==null;return J=t,H.sync(),e}function fe(){let t=decodeURIComponent(location.hash.slice(1));if(t==="contato"){C.isOpen&&C.close(),me("contato")&&(window.scrollTo(0,0),I("#contato-title").focus({preventScroll:!0}));return}let e=me("inicio");if(t.startsWith("projeto-")){C.open(t.slice(8));return}C.isOpen&&C.close();let a=t&&t!=="inicio"?document.getElementById(t):null;a?a.scrollIntoView():(e||t==="inicio")&&(window.scrollTo(0,0),I("#hero-title").focus({preventScroll:!0}))}window.addEventListener("hashchange",fe);fe();})();
+</script>
+</body>
+</html>
